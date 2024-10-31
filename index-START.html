@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Reference VS Copy</title>
+    <link rel="icon" href="https://fav.farm/🔥" />
+  </head>
+  <body>
+    <script>
+      // start with strings, numbers and booleans
+      //if u asiign a var1 to other var2 then its value is aassigned ,when u change that prevs var1 then  var2 value not change
+      let age = 25;
+      let ageUpdated = age;
+      console.log(age, ageUpdated);
+      age = 26;
+      console.log(age, ageUpdated);
+
+      //same thing happens with strings aswell
+      let firstName = "aliya";
+      let secondName = firstName;
+      console.log(firstName, secondName);
+      firstName = "alu";
+      console.log(firstName, secondName);
+
+      // Let's say we have an array
+      const players = ["Wes", "Sarah", "Ryan", "Poppy"];
+
+      // and we want to make a copy of it.
+      //saame thing we doing with array like num,string,but
+      const newPlayers = players;
+      console.log(newPlayers);
+      players[0] = "alu";
+      console.log(newPlayers, players);
+      //not only 1st array changed but also reference changed 2nd array
+      //we want copy of array with no updates when changed in 1st arrray
+      //5 - ways to create copy of array
+      // 1.slice
+      const arr1 = players.slice();
+      arr1[0] = "palu";
+      console.log(arr1, players);
+
+      // 2.concat
+      const arr2 = [].concat(players);
+      arr2[0] = "salu";
+      console.log(arr2, players);
+
+      // 3.spread
+      const arr3 = [...players];
+      arr3[0] = "dalu";
+      console.log(arr3, players);
+
+      // 4.Array.from
+      const arr4 = Array.from(players);
+      arr4[0] = "jalu";
+      console.log(arr4, players);
+
+      //5.object.assign
+      const arr5 = Object.assign([], players);
+      arr5[0] = "kalu";
+      console.log(arr5, players);
+
+      // with Objects
+      const person = {
+        name: "Wes Bos",
+        age: 80,
+        social: {
+          facebook: "skala@",
+        },
+      };
+
+      // and think we make a copy:
+
+      const obj = Object.assign({}, person, { gender: "Female" });
+      obj.age = 30;
+      obj.social.facebook = "changed";
+      //here both changed also extra items added possible
+      console.log(obj, person);
+
+      const obj1 = { ...person };
+      obj1.age = 40;
+      obj1.social.facebook = "changed";
+      //same here both changed reflects to main obj person
+      console.log(obj1, person);
+      // with this spread nested get effected when u change obj1 social item then persson also updated
+
+      // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+      // same for obj.assign also 1 level deep,but  '_.clone' this
+
+      const obj2 = JSON.parse(JSON.stringify(person));
+      obj2.social.facebook = "changedId2";
+      //here only copied obj changed not real obj
+      console.log(obj2, person);
+      console.log(JSON.stringify(person));
+      //with this json u can change nested 1s also no worries theres no effct to person obj nested items
+    </script>
+  </body>
+</html>
